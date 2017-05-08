@@ -14,10 +14,13 @@ const receiveContacts = (contacts) => ({
   contacts
 })
 
-export const getAllContacts = () => (dispatch) => {
+export const fetchContacts = () => (dispatch) => {
+  dispatch({ type: 'FETCH_START' })
+
   fetch('https://s3.amazonaws.com/technical-challenge/Contacts_v2.json')
     .then((res) => res.json())
     .then(parseContacts)
     .then((contacts) => dispatch(receiveContacts(contacts)))
+    .then(() => dispatch({ type: 'FETCH_END' }))
     .catch((err) => { throw err })
 }

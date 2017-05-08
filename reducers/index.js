@@ -1,4 +1,5 @@
 const initialState = {
+  fetchingContacts: false,
   contacts: []
 }
 
@@ -6,6 +7,18 @@ const reducers = {
   RECEIVE_CONTACTS: (state, action) => {
     return Object.assign({}, state, {
       contacts: action.contacts
+    })
+  },
+
+  FETCH_START: (state, action) => {
+    return Object.assign({}, state, {
+      fetchingContacts: true
+    })
+  },
+
+  FETCH_END: (state, action) => {
+    return Object.assign({}, state, {
+      fetchingContacts: false
     })
   }
 }

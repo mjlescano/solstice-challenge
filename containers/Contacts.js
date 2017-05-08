@@ -3,12 +3,18 @@ import { StyleSheet, Image } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { getAllContacts, getFavoriteContacts } from '../reducers'
+import { fetchContacts } from '../actions'
 import ContactsList from '../components/ContactsList'
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchContacts: () => dispatch(fetchContacts())
+})
 
 const AllContacts = connect((state, { navigation }) => ({
   contacts: getAllContacts(state),
+  refreshing: state.fetchingContacts,
   navigation
-}))(ContactsList)
+}), mapDispatchToProps)(ContactsList)
 
 AllContacts.navigationOptions = {
   title: 'All',
@@ -22,8 +28,9 @@ AllContacts.navigationOptions = {
 
 const FavotireContacts = connect((state, { navigation }) => ({
   contacts: getFavoriteContacts(state),
+  refreshing: state.fetchingContacts,
   navigation
-}))(ContactsList)
+}), mapDispatchToProps)(ContactsList)
 
 FavotireContacts.navigationOptions = {
   title: 'Favorites',

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import reducer from './reducers'
-import { getAllContacts } from './actions'
+import { fetchContacts } from './actions'
 import App from './containers/App'
 
 const middleware = [thunk]
@@ -18,7 +18,7 @@ const store = createStore(
   applyMiddleware(...middleware)
 )
 
-store.dispatch(getAllContacts())
+store.dispatch(fetchContacts())
 
 export default () => (
   <Provider store={store}>

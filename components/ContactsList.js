@@ -8,6 +8,32 @@ import {
   TouchableHighlight
 } from 'react-native'
 
+export default class ContactsList extends Component {
+  handleRowPress (id) {
+    const { navigate } = this.props.navigation
+    navigate('Contact', { contact: id })
+  }
+
+  renderItem = ({ item }) => (
+    <ContactItem {...item} onPress={() => this.handleRowPress(item.id)} />
+  )
+
+  keyExtractor = (contact) => contact.id
+
+  render () {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={this.props.contacts}
+          keyExtractor={this.keyExtractor}
+          onRefresh={this.props.fetchContacts}
+          refreshing={this.props.refreshing}
+          renderItem={this.renderItem} />
+      </View>
+    )
+  }
+}
+
 const getMainPhone = (phones) => phones[Object.keys(phones)[0]]
 
 const ContactItem = ({
@@ -32,30 +58,6 @@ const ContactItem = ({
     </View>
   </TouchableHighlight>
 )
-
-export default class ContactsList extends Component {
-  handleRowPress (id) {
-    const { navigate } = this.props.navigation
-    navigate('Contact', { contact: id })
-  }
-
-  renderItem = ({ item }) => (
-    <ContactItem {...item} onPress={() => this.handleRowPress(item.id)} />
-  )
-
-  keyExtractor = (contact) => contact.id
-
-  render () {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={this.props.contacts}
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderItem} />
-      </View>
-    )
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
