@@ -1,23 +1,27 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
+import reducer from './reducers'
+import { getAllContacts } from './actions'
+import App from './containers/App'
 
-export default class Apfixfip extends React.Component {
-  render () {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    )
-  }
+const middleware = [thunk]
+
+if (process.env.NODE_ENV !== 'production') {
+  middleware.push(createLogger())
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+const store = createStore(
+  reducer,
+  applyMiddleware(...middleware)
+)
+
+store.dispatch(getAllContacts())
+
+export default () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+)
