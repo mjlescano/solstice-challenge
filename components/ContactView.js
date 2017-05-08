@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Image, View } from 'react-native'
+import { StyleSheet, Image, View, Text } from 'react-native'
 
 const ContactView = ({
   id,
@@ -7,45 +7,37 @@ const ContactView = ({
   largeImageURL
 }) => (
   <View style={styles.container}>
-    <Image
-      style={styles.image}
-      defaultSource={require('../assets/avatar.png')}
-      source={{ uri: largeImageURL, cache: 'only-if-cached' }} />
     <View style={styles.info}>
+      <Image
+        style={styles.image}
+        defaultSource={require('../assets/avatar.png')}
+        source={{ uri: largeImageURL }} />
       <Text style={styles.name}>{name}</Text>
     </View>
   </View>
 )
 
-ContactView.navigationOptions = {
-  title: 'All Contacts',
-  tabBarLabel: 'Contacts',
-  tabBarIcon: ({ tintColor }) => (
-    <Image
-      source={require('../assets/contacts.png')}
-      style={[styles.icon, { tintColor }]} />
-  )
-}
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    padding: 10
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 25
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 10
   },
   info: {
     flex: 1,
-    paddingLeft: 10,
-    alignItems: 'stretch',
-    justifyContent: 'center'
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   name: {
     color: '#222',
-    fontWeight: 'bold',
-    fontSize: 16
+    fontWeight: 'normal',
+    fontSize: 32
   }
 })
 

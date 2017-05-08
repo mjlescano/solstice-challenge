@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import { getAllContacts, getFavoriteContacts } from '../reducers'
 import ContactsList from '../components/ContactsList'
 
-const AllContacts = connect((state) => ({
-  contacts: getAllContacts(state)
+const AllContacts = connect((state, { navigation }) => ({
+  contacts: getAllContacts(state),
+  navigation
 }))(ContactsList)
 
 AllContacts.navigationOptions = {
-  title: 'All Contacts',
+  title: 'All',
   tabBarLabel: 'Contacts',
   tabBarIcon: ({ tintColor }) => (
     <Image
@@ -19,12 +20,13 @@ AllContacts.navigationOptions = {
   )
 }
 
-const FavotireContacts = connect((state) => ({
-  contacts: getFavoriteContacts(state)
+const FavotireContacts = connect((state, { navigation }) => ({
+  contacts: getFavoriteContacts(state),
+  navigation
 }))(ContactsList)
 
 FavotireContacts.navigationOptions = {
-  title: 'Favorite Contacts',
+  title: 'Favorites',
   tabBarLabel: 'Favorites',
   tabBarIcon: ({ tintColor }) => (
     <Image

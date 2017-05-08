@@ -24,7 +24,7 @@ const ContactItem = ({
       <Image
         style={styles.image}
         defaultSource={require('../assets/avatar.png')}
-        source={{ uri: smallImageURL, cache: 'only-if-cached' }} />
+        source={{ uri: smallImageURL }} />
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.phone}>{getMainPhone(phone)}</Text>
@@ -34,15 +34,9 @@ const ContactItem = ({
 )
 
 export default class ContactsList extends Component {
-  state = { selected: new Map() }
-
   handleRowPress (id) {
-    console.log(id)
-    this.setState((state) => {
-      const selected = new Map(state.selected)
-      selected.set(id, !state.selected.get(id))
-      return { selected }
-    })
+    const { navigate } = this.props.navigation
+    navigate('Contact', { contact: id })
   }
 
   renderItem = ({ item }) => (
