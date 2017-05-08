@@ -21,6 +21,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "eslint-plugin-react-native": "^2.3.2",
     "expo": "^16.0.0",
     "react": "16.0.0-alpha.6",
     "react-native": "^0.43.4",
