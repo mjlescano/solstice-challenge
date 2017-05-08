@@ -3,6 +3,6 @@ import Contacts from './Contacts'
 import Contact from './Contact'
 
 export default StackNavigator({
-  Home: { screen: Contacts },
+  Contacts: { screen: Contacts },
   Contact: { screen: Contact }
 })
