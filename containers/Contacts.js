@@ -10,11 +10,12 @@ const AllContacts = connect((state) => ({
 }))(ContactsList)
 
 AllContacts.navigationOptions = {
+  title: 'All Contacts',
   tabBarLabel: 'Contacts',
   tabBarIcon: ({ tintColor }) => (
     <Image
       source={require('../assets/contacts.png')}
-      style={[styles.icon, { tintColor: tintColor }]} />
+      style={[styles.icon, { tintColor }]} />
   )
 }
 
@@ -23,11 +24,12 @@ const FavotireContacts = connect((state) => ({
 }))(ContactsList)
 
 FavotireContacts.navigationOptions = {
+  title: 'Favorite Contacts',
   tabBarLabel: 'Favorites',
   tabBarIcon: ({ tintColor }) => (
     <Image
       source={require('../assets/favorites.png')}
-      style={[styles.icon, { tintColor: tintColor }]} />
+      style={[styles.icon, { tintColor }]} />
   )
 }
 

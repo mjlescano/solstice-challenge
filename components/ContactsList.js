@@ -1,58 +1,67 @@
 import React, { Component } from 'react'
-import { StyleSheet, ListView, Text, View, Image } from 'react-native'
+import {
+  StyleSheet,
+  FlatList,
+  Text,
+  View,
+  Image,
+  TouchableHighlight
+} from 'react-native'
+
+const getMainPhone = (phones) => phones[Object.keys(phones)[0]]
+
+const ContactItem = ({
+  id,
+  name,
+  smallImageURL,
+  phone,
+  onPress
+}) => (
+  <TouchableHighlight
+    underlayColor={'#fafafa'}
+    onPress={onPress}>
+    <View style={styles.row}>
+      <Image
+        style={styles.image}
+        defaultSource={require('../assets/avatar.png')}
+        source={{ uri: smallImageURL, cache: 'only-if-cached' }} />
+      <View style={styles.info}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.phone}>{getMainPhone(phone)}</Text>
+      </View>
+    </View>
+  </TouchableHighlight>
+)
 
 export default class ContactsList extends Component {
-  constructor (props) {
-    super(props)
+  state = { selected: new Map() }
 
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => {
-        return r1.id !== r2.id || r1.modifiedAt !== r2.modifiedAt
-      }
-    })
-
-    this.state = {
-      dataSource: ds.cloneWithRows(props.contacts)
-    }
-  }
-
-  componentWillReceiveProps (props) {
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(props.contacts)
+  handleRowPress (id) {
+    console.log(id)
+    this.setState((state) => {
+      const selected = new Map(state.selected)
+      selected.set(id, !state.selected.get(id))
+      return { selected }
     })
   }
+
+  renderItem = ({ item }) => (
+    <ContactItem {...item} onPress={() => this.handleRowPress(item.id)} />
+  )
+
+  keyExtractor = (contact) => contact.id
 
   render () {
     return (
       <View style={styles.container}>
-        <ListView
-          enableEmptySections
-          dataSource={this.state.dataSource}
-          renderRow={Row} />
+        <FlatList
+          data={this.props.contacts}
+          keyExtractor={this.keyExtractor}
+          renderItem={this.renderItem} />
       </View>
     )
   }
 }
-
-const Row = ({
-  id,
-  name,
-  smallImageURL,
-  phone
-}) => (
-  <View style={styles.row}>
-    <Image
-      style={styles.image}
-      defaultSource={require('../assets/avatar.png')}
-      source={{ uri: smallImageURL, cache: 'only-if-cached' }} />
-    <View style={styles.info}>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.phone}>{getMainPhone(phone)}</Text>
-    </View>
-  </View>
-)
-
-const getMainPhone = (phones) => phones[Object.keys(phones)[0]]
 
 const styles = StyleSheet.create({
   container: {

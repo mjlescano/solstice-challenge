@@ -1,19 +1,6 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StackNavigator } from 'react-navigation'
 import Contacts from './Contacts'
 
-const App = ({ contacts }) => (
-  <View style={styles.container}>
-    <Contacts />
-  </View>
-)
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 24,
-    backgroundColor: '#fafafa'
-  }
+export default StackNavigator({
+  Home: { screen: Contacts }
 })
-
-export default App
