@@ -22,4 +22,8 @@ export const getContact = (state, id) => {
   return state.contacts.find((contact) => contact.id === id)
 }
 
-export const getContacts = (state) => state.contacts
+export const getAllContacts = (state) => state.contacts.slice(0)
+
+export const getFavoriteContacts = (state) => {
+  return state.contacts.filter((contact) => contact.favorite)
+}

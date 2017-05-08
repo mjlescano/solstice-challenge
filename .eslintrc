@@ -4,6 +4,7 @@
   "extends": ["democracyos"],
 
   "env": {
+    "browser": true,
     "jest": true
   },
 
