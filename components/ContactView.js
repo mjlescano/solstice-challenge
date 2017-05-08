@@ -6,7 +6,8 @@ import {
   Text,
   ScrollView,
   Linking,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from 'react-native'
 import moment from 'moment'
 import FullWidthImage from './FullWidthImage'
@@ -19,7 +20,9 @@ const ContactView = ({
   phone,
   birthdate,
   email,
-  address
+  address,
+  favorite,
+  onToggleFavorite
 }) => (
   <ScrollView style={styles.container}>
     <View style={styles.info}>
@@ -29,6 +32,12 @@ const ContactView = ({
         source={{ uri: largeImageURL }} />
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.company}>{company}</Text>
+    </View>
+    <View style={styles.actions}>
+      <Button
+        onPress={onToggleFavorite}
+        title={favorite ? 'Remove from favorites' : 'Add to favorites'}
+        accessibilityLabel={`Add ${name} to favorites.`} />
     </View>
     {phone && (
       <View style={styles.attributes}>
@@ -135,6 +144,9 @@ const styles = StyleSheet.create({
     color: '#666',
     fontWeight: '100',
     fontSize: 16
+  },
+  actions: {
+    paddingBottom: 10
   }
 })
 
