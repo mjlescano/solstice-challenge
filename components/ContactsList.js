@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, ListView, Text, View } from 'react-native'
+import { StyleSheet, ListView, Text, View, Image } from 'react-native'
 
 export default class ContactsList extends Component {
   constructor (props) {
@@ -36,28 +36,52 @@ export default class ContactsList extends Component {
 
 const Row = ({
   id,
-  name
+  name,
+  smallImageURL,
+  phone
 }) => (
   <View style={styles.row}>
-    <Text style={styles.id}>{id}</Text>
-    <Text style={styles.name}>{name}</Text>
+    <Image
+      style={styles.image}
+      defaultSource={require('../assets/avatar.png')}
+      source={{ uri: smallImageURL, cache: 'only-if-cached' }} />
+    <View style={styles.info}>
+      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.phone}>{getMainPhone(phone)}</Text>
+    </View>
   </View>
 )
+
+const getMainPhone = (phones) => phones[Object.keys(phones)[0]]
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
   row: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10
   },
-  id: {
-    color: '#444',
-    fontSize: 12
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25
+  },
+  info: {
+    flex: 1,
+    paddingLeft: 10,
+    alignItems: 'stretch',
+    justifyContent: 'center'
   },
   name: {
     color: '#222',
     fontWeight: 'bold',
     fontSize: 16
+  },
+  phone: {
+    color: '#444',
+    fontSize: 12
   }
 })
