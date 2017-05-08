@@ -28,6 +28,7 @@ export default class ContactsList extends Component {
           keyExtractor={this.keyExtractor}
           onRefresh={this.props.fetchContacts}
           refreshing={this.props.refreshing}
+          removeClippedSubviews={false}
           renderItem={this.renderItem} />
       </View>
     )

@@ -6,7 +6,6 @@ import ContactView from '../components/ContactView'
 class Contact extends Component {
   render () {
     const { contact } = this.props
-    console.log(contact, this.props.navigation.state.params)
     return <ContactView {...contact} />
   }
 }
