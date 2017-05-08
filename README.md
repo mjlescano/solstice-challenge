@@ -4,6 +4,8 @@ Below you'll find information about performing common tasks. The most recent ver
 
 ## Table of Contents
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mjlescano/solstice-challenge.svg?token=8c8c79c1ec1e778a48f7f4a2b5f1591c4379eab1684084f2009190e9c0dea6a3&ts=1494202486521)](https://greenkeeper.io/)
+
 * [Updating to New Releases](#updating-to-new-releases)
 * [Available Scripts](#available-scripts)
   * [npm start](#npm-start)
