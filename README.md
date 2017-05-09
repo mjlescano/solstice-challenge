@@ -49,6 +49,7 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 
 ### Next Steps (not yet implemented)
 
+* Search Feature on Contacts List
 * Edit Contact Form
 * Add Contact Form
 * Responsive for Tablets
