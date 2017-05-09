@@ -50,8 +50,8 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 ### Next Steps (not yet implemented)
 
 * Search Feature on Contacts List
-* Edit Contact Form
-* Add Contact Form
+* Edit Contact Form (reducer already implemented [here](https://github.com/mjlescano/solstice-challenge/blob/master/reducers/index.js#L47-L58))
+* Add Contact Form (reducer already implemented [here](https://github.com/mjlescano/solstice-challenge/blob/master/reducers/index.js#L36-L45))
 * Responsive for Tablets
   * Implemented using a [Custom Navigator](https://reactnavigation.org/docs/navigators/custom)
 * Being responsiveness implemented, I would use [React Native Web](https://github.com/necolas/react-native-web) to be able to use the same codebase on Desktop.
