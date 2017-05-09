@@ -60,8 +60,8 @@ const reducers = {
   REMOVE_CONTACT: (state, action) => {
     return {
       ...state,
-      contacts: action.contacts.filter((contact) => {
-        return contact.id !== action.contact.id
+      contacts: state.contacts.filter((contact) => {
+        return contact.id !== action.id
       })
     }
   },

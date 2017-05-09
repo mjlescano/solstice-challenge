@@ -3,6 +3,12 @@ import Contacts from './Contacts'
 import Contact from './Contact'
 
 export default StackNavigator({
-  Contacts: { screen: Contacts },
-  Contact: { screen: Contact }
+  Contacts: {
+    path: 'contacts',
+    screen: Contacts
+  },
+  Contact: {
+    path: 'contacts/:contact',
+    screen: Contact
+  }
 })

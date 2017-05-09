@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Image,
@@ -6,93 +6,92 @@ import {
   Text,
   ScrollView,
   Linking,
-  TouchableOpacity,
-  Button
+  TouchableOpacity
 } from 'react-native'
 import moment from 'moment'
 import FullWidthImage from './FullWidthImage'
 
-const ContactView = ({
-  id,
-  largeImageURL,
-  name,
-  company,
-  phone,
-  birthdate,
-  email,
-  address,
-  favorite,
-  onToggleFavorite
-}) => (
-  <ScrollView style={styles.container}>
-    <View style={styles.info}>
-      <Image
-        style={styles.image}
-        defaultSource={require('../assets/avatar.png')}
-        source={{ uri: largeImageURL }} />
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.company}>{company}</Text>
-    </View>
-    <View style={styles.actions}>
-      <Button
-        onPress={onToggleFavorite}
-        title={favorite ? 'Remove from favorites' : 'Add to favorites'}
-        accessibilityLabel={`Add ${name} to favorites.`} />
-    </View>
-    {phone && (
-      <View style={styles.attributes}>
-        <Text style={styles.attributeName}>Phone:</Text>
-        {Object.keys(phone).map((type) => {
-          const number = phone[type]
-          if (!number) return null
-          return (
-            <View key={type} style={styles.attributeWithType}>
-              <Text style={styles.attributeValue}>{number}</Text>
-              <Text style={styles.attributeType}> ({type})</Text>
-            </View>
-          )
-        })}
-      </View>
-    )}
-    {birthdate && (
-      <View style={styles.attributes}>
-        <Text style={styles.attributeName}>Birthday:</Text>
-        <Text style={styles.attributeValue}>
-          {moment(parseInt(birthdate, 10)).format('MMMM Do, YYYY')}
-        </Text>
-      </View>
-    )}
-    {email && (
-      <View style={styles.attributes}>
-        <Text style={styles.attributeName}>Email:</Text>
-        <Text style={styles.attributeValue}>{email}</Text>
-      </View>
-    )}
-    {address && (
-      <View style={styles.attributes}>
-        <Text style={styles.attributeName}>Address:</Text>
-        <Text style={styles.attributeValue}>{address.street}</Text>
-        <Text style={styles.attributeValue}>
-          {address.city}, {address.state} {address.zip}
-        </Text>
-      </View>
-    )}
-    {address && address.latitude && address.longitude && (
-      <TouchableOpacity
-        onPress={() => {
-          openUrl(`https://maps.google.com/maps?&z=13&q=${address.latitude}+${address.longitude}`)
-        }}>
-        <FullWidthImage
-          width={1000}
-          height={800}
-          source={{ uri: `https://maps.googleapis.com/maps/api/staticmap?scale=2&size=640x512&zoom=13&markers=${address.latitude},${address.longitude}` }} />
-      </TouchableOpacity>
-    )}
-  </ScrollView>
-)
+export default class ContactView extends Component {
+  handleMapShow () {
+    const lat = this.props.address.latitude
+    const lng = this.props.address.longitude
 
-const openUrl = (url) => {
-  Linking.openURL(url).catch((err) => console.error('An error occurred', err))
+    const url = `https://maps.google.com/maps?&z=13&q=${lat}+${lng}`
+
+    Linking.openURL(url).catch((err) => console.error('An error occurred', err))
+  }
+
+  render () {
+    const {
+      largeImageURL,
+      name,
+      company,
+      phone,
+      birthdate,
+      email,
+      address
+    } = this.props
+
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.info}>
+          <Image
+            style={styles.image}
+            defaultSource={require('../assets/avatar.png')}
+            source={{ uri: largeImageURL }} />
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.company}>{company}</Text>
+        </View>
+        {phone && (
+          <View style={styles.attributes}>
+            <Text style={styles.attributeName}>Phone:</Text>
+            {Object.keys(phone).map((type) => {
+              const number = phone[type]
+              if (!number) return null
+              return (
+                <View key={type} style={styles.attributeWithType}>
+                  <Text style={styles.attributeValue}>{number}</Text>
+                  <Text style={styles.attributeType}> ({type})</Text>
+                </View>
+              )
+            })}
+          </View>
+        )}
+        {birthdate && (
+          <View style={styles.attributes}>
+            <Text style={styles.attributeName}>Birthday:</Text>
+            <Text style={styles.attributeValue}>
+              {moment(parseInt(birthdate, 10)).format('MMMM Do, YYYY')}
+            </Text>
+          </View>
+        )}
+        {email && (
+          <View style={styles.attributes}>
+            <Text style={styles.attributeName}>Email:</Text>
+            <Text style={styles.attributeValue}>{email}</Text>
+          </View>
+        )}
+        {address && (
+          <View style={styles.attributes}>
+            <Text style={styles.attributeName}>Address:</Text>
+            <Text style={styles.attributeValue}>{address.street}</Text>
+            <Text style={styles.attributeValue}>
+              {address.city}, {address.state} {address.zip}
+            </Text>
+          </View>
+        )}
+        {address && address.latitude && address.longitude && (
+          <TouchableOpacity
+            onPress={this.handleMapShow}>
+            <FullWidthImage
+              width={1000}
+              height={800}
+              source={{ uri: `https://maps.googleapis.com/maps/api/staticmap?scale=2&size=640x512&zoom=13&markers=${address.latitude},${address.longitude}` }} />
+          </TouchableOpacity>
+        )}
+      </ScrollView>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -144,10 +143,5 @@ const styles = StyleSheet.create({
     color: '#666',
     fontWeight: '100',
     fontSize: 16
-  },
-  actions: {
-    paddingBottom: 10
   }
 })
-
-export default ContactView
